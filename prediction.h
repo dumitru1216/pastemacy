@@ -94,8 +94,16 @@ public:
 	__forceinline void SetupMove( Entity* player, CUserCmd* cmd, IMoveHelper* helper, CMoveData* data ) {
 		return util::get_method< void( __thiscall* )( decltype( this ), Entity*, CUserCmd*, IMoveHelper*, CMoveData* ) >( this, SETUPMOVE )( this, player, cmd, helper, data );
 	}
+	
+	__forceinline void setup_move( Entity* player, CUserCmd* cmd, IMoveHelper* helper, CMoveData* data ) {
+		return util::get_method< void( __thiscall* )( decltype( this ), Entity*, CUserCmd*, IMoveHelper*, CMoveData* ) >( this, SETUPMOVE )( this, player, cmd, helper, data );
+	}
 
 	__forceinline void FinishMove( Entity* player, CUserCmd* cmd, CMoveData* data ) {
+		return util::get_method< void( __thiscall* )( decltype( this ), Entity*, CUserCmd*, CMoveData* ) >( this, FINISHMOVE )( this, player, cmd, data );
+	}
+
+	__forceinline void finish_move( Entity* player, CUserCmd* cmd, CMoveData* data ) {
 		return util::get_method< void( __thiscall* )( decltype( this ), Entity*, CUserCmd*, CMoveData* ) >( this, FINISHMOVE )( this, player, cmd, data );
 	}
 };
@@ -111,6 +119,10 @@ public:
 	};
 
 	__forceinline void ProcessMovement( Entity* player, CMoveData* data ) {
+		return util::get_method< void( __thiscall* )( decltype( this ), Entity*, CMoveData* ) >( this, PROCESSMOVEMENT )( this, player, data );
+	}
+	
+	__forceinline void process_movement( Entity* player, CMoveData* data ) {
 		return util::get_method< void( __thiscall* )( decltype( this ), Entity*, CMoveData* ) >( this, PROCESSMOVEMENT )( this, player, data );
 	}
 
