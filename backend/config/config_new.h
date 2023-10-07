@@ -240,9 +240,9 @@ public:
 
 	bool vfov;
 	int v_fov_am;
-	
-
 	bool planted_c4;
+
+	int prediction_mode;
 
 private:
 }; extern CSettings settings;

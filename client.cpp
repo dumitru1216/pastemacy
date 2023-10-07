@@ -1,4 +1,5 @@
 ﻿#include "includes.h"
+#include "gideon-project/g_inc.hpp"
 
 Client g_cl{ };
 
@@ -205,10 +206,8 @@ void Client::StartMove( CUserCmd* cmd ) {
 	if( !m_processing )
 		return;
 
-	// make sure prediction has ran on all usercommands.
-	// because prediction runs on frames, when we have low fps it might not predict all usercommands.
-	// also fix the tick being inaccurate.
-	g_inputpred.update( );
+	if ( settings.prediction_mode == 0 )
+		g_inputpred.update( );
 
 	// store some stuff about the local player.
 	m_flags = m_local->m_fFlags( );
@@ -259,6 +258,30 @@ void Client::clantag( ) {
 	SetClanTag( szClanTag );
 }
 
+void run_prediction( ) {
+	switch ( settings.prediction_mode ) {
+		case 0: {
+			g_inputpred.run( );
+		} break;
+		case 1: { 
+			gideon::g_prediction->save( );
+		} break;
+	}
+}
+
+void end_prediction( ) {
+	switch ( settings.prediction_mode ) {
+		case 0:
+		{
+			g_inputpred.restore( );
+		} break;
+		case 1:
+		{
+			gideon::g_prediction->restore( );
+		} break;
+	}
+}
+
 void Client::DoMove( ) {
 	penetration::PenetrationOutput_t tmp_pen_data{ };
 
@@ -271,8 +294,7 @@ void Client::DoMove( ) {
 	g_movement.FakeWalk( );
 	g_movement.AutoPeek( );
 
-	// predict input.
-	g_inputpred.run( );
+	run_prediction( );
 
 	// restore original angles after input prediction
 	m_cmd->m_view_angles = m_view_angles;
@@ -424,7 +446,7 @@ void Client::OnTick( CUserCmd* cmd ) {
 
 	// restore curtime/frametime
 	// and prediction seed/player.
-	g_inputpred.restore( );
+	end_prediction( );
 }
 
 void Client::SetAngles( ) {
