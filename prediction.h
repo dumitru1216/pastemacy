@@ -32,6 +32,9 @@ public:
 	vec3_t      m_vecAbsOrigin;
 };
 
+/* macro */
+using c_movedata = CMoveData;
+
 class IMoveHelper {
 public:
 	// indexes for virtuals and hooks.

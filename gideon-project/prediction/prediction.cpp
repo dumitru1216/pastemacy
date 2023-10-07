@@ -16,5 +16,7 @@ namespace gideon {
 		/* start */
 		g_csgo.m_game_movement->start_track_prediction_errors( g_cl.m_local );
 		g_csgo.m_move_helper->set_host( g_cl.m_local );
+
+		CMoveData
 	}
 }
