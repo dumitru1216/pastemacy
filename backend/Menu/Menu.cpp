@@ -106,7 +106,7 @@ void CMenu::Draw()
 				ui::Checkbox( "Anti-aim correction", &settings.correct );
 				ui::Checkbox( "Lag-compensation fix", &settings.lagfix );
 				ui::Checkbox( "Automatic stop", &settings.autostopp );
-
+				ui::SingleSelect( "Prediction selection", &settings.prediction_mode, { "Default", "Gideon" } );
 			}
 			ui::EndChild();
 			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
