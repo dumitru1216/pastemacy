@@ -137,4 +137,8 @@ public:
 	__forceinline void FinishTrackPredictionErrors( Entity* player ) {
 		return util::get_method< void( __thiscall* )( decltype( this ), Entity* ) >( this, FINISHTRACKPREDICTIONERRORS )( this, player );
 	}
+
+	__forceinline void finish_track_prediction_errors( Entity* player ) {
+		return util::get_method< void( __thiscall* )( decltype( this ), Entity* ) >( this, FINISHTRACKPREDICTIONERRORS )( this, player );
+	}
 };

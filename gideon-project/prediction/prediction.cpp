@@ -28,4 +28,12 @@ namespace gideon {
 		/* set this shit to 0 */
 		servertime = 0;
 	}
+
+	void c_prediction::restore( ) {
+		g_csgo.m_game_movement->finish_track_prediction_errors( g_cl.m_local );
+		g_csgo.m_move_helper->set_host( nullptr );
+
+		g_csgo.m_globals->m_frametime = frametime;
+		g_csgo.m_globals->m_tick_count = tickcount;
+	}
 }
