@@ -116,6 +116,9 @@ public:
 	vec3_t  m_head_offset;
 };
 
+/* macro */
+using c_usercmd = CUserCmd;
+
 class CVerifiedUserCmd {
 public:
 	CUserCmd   m_cmd;

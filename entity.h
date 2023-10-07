@@ -647,6 +647,23 @@ public:
 		return get< bool >(g_entoffsets.m_bDucking);
 	}
 
+	__forceinline float calc_srv_time( ) {
+		static int tick = 0;
+		static c_usercmd* last_cmd = nullptr;
+
+		if ( !g_cl.m_cmd )
+			return tick * g_csgo.m_globals->m_interval; /* thats just 0 */
+
+		if ( !last_cmd || last_cmd->hasbeenpredicted )
+			tick = m_nTickBase( );
+		else
+			++tick;
+
+		last_cmd = g_cl.m_cmd;
+
+		return tick * g_csgo.m_globals->m_interval;
+	}
+
 	__forceinline bool &m_bSpotted() {
 		return get< bool >(g_entoffsets.m_bSpotted);
 	}

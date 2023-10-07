@@ -42,6 +42,11 @@ public:
 	__forceinline void SetHost( Entity* host ) {
 		return util::get_method< void( __thiscall* )( decltype( this ), Entity* ) >( this, SETHOST )( this, host );
 	}
+
+	/* snake_case - i know, thats retarded */
+	__forceinline void set_host( Entity* host ) {
+		return util::get_method< void( __thiscall* )( decltype( this ), Entity* ) >( this, SETHOST )( this, host );
+	}
 };
 
 class CPrediction {
@@ -107,6 +112,10 @@ public:
 	}
 
 	__forceinline void StartTrackPredictionErrors( Entity* player ) {
+		return util::get_method< void( __thiscall* )( decltype( this ), Entity* ) >( this, STARTTRACKPREDICTIONERRORS )( this, player );
+	}
+	
+	__forceinline void start_track_prediction_errors( Entity* player ) {
 		return util::get_method< void( __thiscall* )( decltype( this ), Entity* ) >( this, STARTTRACKPREDICTIONERRORS )( this, player );
 	}
 

@@ -6,6 +6,9 @@
 #pragma warning( disable : 4838 ) // conversion from '::size_t' to 'int' requires a narrowing conversion
 #pragma warning( disable : 4996 ) // conversion from '::size_t' to 'int' requires a narrowing conversion
 
+#include <memory>
+#define add_macro(func, name) inline const auto name = std::make_unique< func >( );
+
 // You can define _SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING or _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS to acknowledge that you have received this warning.
 #define _SILENCE_CXX17_OLD_ALLOCATOR_MEMBERS_DEPRECATION_WARNING
 #define _SILENCE_ALL_CXX17_DEPRECATION_WARNINGS
@@ -28,7 +31,6 @@ using ulong_t = unsigned long;
 #include <string>
 #include <chrono>
 #include <thread>
-#include <memory>
 #include <sstream>
 #include <unordered_map>
 #include <iostream>
