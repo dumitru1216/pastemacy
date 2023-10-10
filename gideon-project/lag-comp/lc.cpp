@@ -55,5 +55,12 @@ namespace gideon {
 		lr.mins = !v.empty( ) ? ( v.back( ).simtime != p->m_flSimulationTime( ) ? p->get_collider_offset( )->mins : v.back( ).mins ) : p->get_collider_offset( )->mins;
 		lr.maxs = !v.empty( ) ? ( v.back( ).simtime != p->m_flSimulationTime( ) ? p->get_collider_offset( )->maxs : v.back( ).maxs ) : p->get_collider_offset( )->maxs;
 
+		if ( v.size( ) > 1 )
+			lr.delta = v.back( ).delta;
+
+		memcpy( lr.layers, p->m_AnimOverlay( ), sizeof( C_AnimationLayer ) * 13 );
+		memcpy( lr.poseparams, p->m_flPoseParameter( ), sizeof( float ) * 24 );
+
+		v.push_back( lr );
 	}
 }
