@@ -333,6 +333,18 @@
     <ClInclude Include="backend\config\config_new.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="gideon-project\prediction\prediction.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gideon-project\g_inc.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gideon-project\lag-comp\lc.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="gideon-project\fakelag\fakelag.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bonesetup.cpp">
@@ -507,6 +519,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="backend\config\config_new.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gideon-project\prediction\prediction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gideon-project\lag-comp\lc.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="gideon-project\fakelag\fakelag.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

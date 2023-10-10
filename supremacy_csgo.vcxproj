@@ -159,6 +159,10 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="gameevents.h" />
     <ClInclude Include="gamerules.h" />
+    <ClInclude Include="gideon-project\fakelag\fakelag.hpp" />
+    <ClInclude Include="gideon-project\g_inc.hpp" />
+    <ClInclude Include="gideon-project\lag-comp\lc.hpp" />
+    <ClInclude Include="gideon-project\prediction\prediction.hpp" />
     <ClInclude Include="globalvars.h" />
     <ClInclude Include="glow.h" />
     <ClInclude Include="grenades.h" />
@@ -240,6 +244,9 @@
     <ClCompile Include="edit.cpp" />
     <ClCompile Include="events.cpp" />
     <ClCompile Include="firebullets.cpp" />
+    <ClCompile Include="gideon-project\fakelag\fakelag.cpp" />
+    <ClCompile Include="gideon-project\lag-comp\lc.cpp" />
+    <ClCompile Include="gideon-project\prediction\prediction.cpp" />
     <ClCompile Include="keybind.cpp" />
     <ClCompile Include="matchframework.cpp" />
     <ClCompile Include="materialsystem.cpp" />
