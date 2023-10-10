@@ -243,6 +243,7 @@ public:
 	bool planted_c4;
 
 	int prediction_mode;
+	bool onshotdisable;
 
 private:
 }; extern CSettings settings;
