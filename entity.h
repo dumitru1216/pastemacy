@@ -26,6 +26,14 @@ enum Hitboxes_t : int {
 	HITBOX_MAX
 };
 
+#define g_offset_ptr(c, v, o) (c*)((unsigned int)v + o)
+
+class c_collider {
+public:
+	vec3_t mins;
+	vec3_t maxs;
+};
+
 enum RenderFlags_t : uint32_t {
 	STUDIO_NONE = 0x00000000,
 	STUDIO_RENDER = 0x00000001,
@@ -395,6 +403,21 @@ public:
 		g_csgo.SetAbsAngles.as< SetAbsAngles_t >()(this, angles);
 	}
 
+	__forceinline void update_anim_state( CCSGOPlayerAnimState* as, c_angle absangle ) {
+		// 55 8B EC 83 E4 F8 83 EC 18 56 57 8B F9 F3 0F 11 54 24
+
+		static auto fn = pattern::find( g_csgo.m_client_dll, "55 8B EC 83 E4 F8 83 EC 18 56 57 8B F9 F3 0F 11 54 24" );
+
+		__asm {
+			push ecx
+			mov ecx, as
+			movss xmm1, dword ptr[ absangle + 4 ]
+			movss xmm2, dword ptr[ absangle ]
+			call fn
+		}
+	}
+
+
 	__forceinline void SetAbsOrigin(const vec3_t &origin) {
 		using SetAbsOrigin_t = void(__thiscall *)(decltype(this), const vec3_t &);
 		g_csgo.SetAbsOrigin.as< SetAbsOrigin_t >()(this, origin);
@@ -647,6 +670,10 @@ public:
 		return get< bool >(g_entoffsets.m_bDucking);
 	}
 
+	__forceinline c_collider* get_collider_offset( ) {
+		return g_offset_ptr( c_collider, this, 0x320 );
+	}
+
 	__forceinline float calc_srv_time( ) {
 		static int tick = 0;
 		static c_usercmd* last_cmd = nullptr;
@@ -654,7 +681,7 @@ public:
 		if ( !g_cl.m_cmd )
 			return tick * g_csgo.m_globals->m_interval; /* thats just 0 */
 
-		if ( !last_cmd || last_cmd->hasbeenpredicted )
+		if ( !last_cmd || last_cmd->m_predicted )
 			tick = m_nTickBase( );
 		else
 			++tick;

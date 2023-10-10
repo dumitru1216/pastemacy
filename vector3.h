@@ -5,6 +5,54 @@ public:
 	float x, y, z, w;
 };
 
+
+class c_angle {
+public:
+	c_angle( ) { }
+	c_angle( float p, float y ) { this->p = p; this->y = y; }
+	c_angle( float p, float y, float r ) { this->p = p; this->y = y; this->r = r; }
+
+	c_angle normalize( ) {
+		if ( p < -89.0f )
+			p = -89.0f;
+		if ( p > 89.0f )
+			p = 89.0f;
+		while ( y < -180.0f )
+			y += 360.0f;
+		while ( y > 180.0f )
+			y -= 360.0f;
+
+		r = 0.0f;
+		return *this;
+	}
+
+	c_angle operator-( const c_angle& other ) const { return c_angle( p - other.p, y - other.y, r - other.r ); }
+	c_angle operator+( const c_angle& other ) const { return c_angle( p + other.p, y + other.y, r + other.r ); }
+	c_angle operator*( const c_angle& other ) const { return c_angle( p * other.p, y * other.y, r * other.r ); }
+	c_angle operator/( const c_angle& other ) const { return c_angle( p / other.p, y / other.y, r / other.r ); }
+	c_angle operator-( float other ) const { return c_angle( p - other, y - other, r - other ); }
+	c_angle operator+( float other ) const { return c_angle( p + other, y + other, r + other ); }
+	c_angle operator*( float other ) const { return c_angle( p * other, y * other, r * other ); }
+	c_angle operator/( float other ) const { return c_angle( p / other, y / other, r / other ); }
+	c_angle& operator-=( float other ) { p -= other; y -= other; r -= other; return *this; }
+	c_angle& operator-=( const c_angle& other ) { p -= other.p; y -= other.y; r -= other.r; return *this; }
+
+	__forceinline vec3_t vector( ) {
+		float sp, sy, cp, cy;
+		math::sincos( math::rad( y ), &sy, &cy );
+		math::sincos( math::rad( p ), &sp, &cp );
+		vec3_t forward;
+		forward.x = cp * cy;
+		forward.y = cp * sy;
+		forward.z = -sp;
+
+		return forward;
+	}
+
+	float p = 0, y = 0, r = 0;
+};
+
+
 class vec3_t {
 public:
 	// data member variables

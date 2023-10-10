@@ -71,6 +71,20 @@ namespace math {
     bool IntersectRayWithOBB( const vec3_t &start, const vec3_t &delta, const matrix3x4_t &obb_to_world, const vec3_t &mins, const vec3_t &maxs, float tolerance, CBaseTrace *out_tr );
     bool IntersectRayWithOBB( const vec3_t &start, const vec3_t &delta, const vec3_t &box_origin, const ang_t &box_rotation, const vec3_t &mins, const vec3_t &maxs, float tolerance, CBaseTrace *out_tr );
 
+    __forceinline void sincos( float a, float* s, float* c ) {
+        *s = sinf( a );
+        *c = cosf( a );
+    }
+
+    __forceinline float rad( float deg ) {
+        return deg * pi / 180.f;
+    }
+
+    __forceinline float deg( float rad ) {
+        return rad * 180.f / pi;
+    }
+
+
     // returns whether or not there was an intersection of a sphere against an infinitely extending ray. 
     // returns the two intersection points.
     bool IntersectInfiniteRayWithSphere( const vec3_t &start, const vec3_t &delta, const vec3_t &sphere_center, float radius, float *out_t1, float *out_t2 );
