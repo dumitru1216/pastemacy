@@ -63,4 +63,42 @@ namespace gideon {
 
 		v.push_back( lr );
 	}
+
+	void c_lc::clear( ) {
+		players.clear( );
+	}
+
+	std::vector<c_lag_record>& c_lc::get( Player* p ) {
+		return players[ p->index( ) ];
+	}
+
+	void c_lc::clear( int i ) {
+		players[ i ].clear( );
+	}
+
+	bool c_lc::is_valid( c_lag_record& lc ) {
+		auto chan = g_csgo.m_cl->m_net_channel;
+		if (!chan)
+			return false;
+
+		static auto sv_maxunlag = g_csgo.m_cvar->FindVar( HASH( "sv_maxunlag" ) );
+		if ( !sv_maxunlag )
+			return false;
+
+		auto dead_time = game::TICKS_TO_TIME( g_csgo.m_cl->m_server_count ) + chan->GetLatency( 0 ) - sv_maxunlag->GetFloat( );
+		if ( dead_time >= lc.simtime )
+			return true;
+
+		auto correct = std::clamp( get_lerptime( ) + chan->GetLatency( 0 ), 0.f, sv_maxunlag->GetFloat( ) );
+		return fabsf( correct - ( g_cl.m_local->m_nTickBase( ) - lc.simtime ) ) <= sv_maxunlag->GetFloat( );
+	}
+
+	float c_lc::get_lerptime( ) {
+		static auto cl_interp = g_csgo.m_cvar->FindVar( HASH( "cl_interp" ) );
+		static auto cl_interp_ratio = g_csgo.m_cvar->FindVar( HASH( "cl_interp_ratio" ) );
+		static auto cl_updaterate = g_csgo.m_cvar->FindVar( HASH( "cl_updaterate" ) );
+
+		return std::fmax( cl_interp->GetFloat( ), cl_interp_ratio->GetFloat( ) / cl_updaterate->GetFloat( ) );
+	}
+
 }
